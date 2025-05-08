@@ -1193,10 +1193,7 @@ func (api *API) traceBundle(ctx context.Context, bundle *Bundle, simulateContext
 			gasCap := api.backend.RPCGasCap()
 			args.Gas = (*hexutil.Uint64)(&gasCap)
 		}
-		msg, err := args.ToMessage(api.backend.RPCGasCap(), block.BaseFee())
-		if err != nil {
-			return result, err
-		}
+		msg := args.ToMessage(block.BaseFee(), true, true)
 
 		var traceConfig *TraceConfig
 		if config != nil {
